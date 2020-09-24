@@ -1,4 +1,8 @@
-package br.com.house.digital.exercicio
+package br.com.house.digital
+
+import br.com.house.digital.entities.Colecao
+import br.com.house.digital.entities.Estoque
+import br.com.house.digital.entities.Livro
 
 fun main(){
     val livro1 = Livro(1, "Livro 1", "João", 2020, 5, 15.00)
@@ -7,11 +11,7 @@ fun main(){
     val livro4 = Livro(4, "Livro 4", "Rodrigo", 2019, 2, 40.00)
     val livro5 = Livro(5, "Livro 5", "Vitor", 2017, 1, 20.00)
 
-
     val livro6 = Livro(6, "Livro 6", "Renan", 2017, 1, 20.00) //livro para add
-
-
-
 
     val listaTodos = mutableListOf(livro1, livro2, livro3, livro4, livro5)
     val listaProfs = mutableListOf(livro1, livro2, livro3)

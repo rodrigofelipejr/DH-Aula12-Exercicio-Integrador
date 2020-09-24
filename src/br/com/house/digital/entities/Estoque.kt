@@ -1,4 +1,4 @@
-package br.com.house.digital.exercicio
+package br.com.house.digital.entities
 
 class Estoque(private val listaLivros: MutableList<Livro>, private val listaColecao: MutableList<Colecao>) {
 
