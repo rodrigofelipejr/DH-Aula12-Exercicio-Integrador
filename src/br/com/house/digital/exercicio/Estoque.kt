@@ -17,21 +17,22 @@ class Estoque(private val listaLivros: MutableList<Livro>, private val listaCole
     }
 
     fun consultar(codigo: Int, tipo: String) {
+
         if (tipo == "livro") {
-            listaLivros.forEach {
-                if (it.codigo == codigo) {
-                    it.toString()
-                } else {
-                    println("Livro não encontrado")
-                }
+            val livro: Livro? = listaLivros.find { it.codigo == codigo }
+
+            if (livro == null) {
+                println("Livro não encontrado")
+            } else {
+                println(livro)
             }
         } else if (tipo == "colecao") {
-            listaColecao.forEach {
-                if (it.codigo == codigo) {
-                    it.toString()
-                } else {
-                    println("Coleção não encontrada")
-                }
+            val colecao: Colecao? = listaColecao.find { it.codigo == codigo }
+
+            if (colecao == null) {
+                println("Coleção não encontrado")
+            } else {
+                println(colecao)
             }
         } else {
             println("Método de consulta inválido!")
@@ -55,6 +56,7 @@ class Estoque(private val listaLivros: MutableList<Livro>, private val listaCole
                             }
                         }
                     }
+                    println("Livro ${livro.titulo} vendido com sucesso!")
                 }
             } else {
                 println("Livro não encontrado")
@@ -64,15 +66,16 @@ class Estoque(private val listaLivros: MutableList<Livro>, private val listaCole
 
             if (colecao != null) {
                 colecao.livros.forEach {
-                    if (verificaEstoque(it) == false) {
+                    if (verificaEstoque(it, quantidade) == false) {
                         println("O livro ${it.titulo} da coleção ${colecao.descricao} não possui estoque.")
                         return
                     } else {
-                        it.quantidadeEstoque -= 1
+                        it.quantidadeEstoque -= quantidade
                         if (it.quantidadeEstoque == 0) {
                             listaLivros.remove(it)
                         }
                     }
+                    println("Coleção ${colecao.descricao} vendida com sucesso!")
                 }
             } else {
                 println("Coleção não encontrado")
@@ -82,10 +85,10 @@ class Estoque(private val listaLivros: MutableList<Livro>, private val listaCole
         }
     }
 
-    fun verificaEstoque(livro: Livro): Boolean {
+    fun verificaEstoque(livro: Livro, quantidade: Int): Boolean {
         val livro: Livro? = listaLivros.find { it.equals(livro) }
         return if (livro != null) {
-            livro.quantidadeEstoque >= 1
+            livro.quantidadeEstoque >= quantidade
         } else {
             false
         }
