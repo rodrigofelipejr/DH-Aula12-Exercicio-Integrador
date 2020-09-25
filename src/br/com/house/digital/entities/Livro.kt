@@ -14,7 +14,7 @@ class Livro(
     init {
         if (quantidadeEstoque <= 0) {
             quantidadeEstoque = 1
-            println("Não é possível inicializar um livro com quantidade 0! Quantidade 1 atribuída automaticamente.")
+            println("Não é possível inicializar um livro com quantidade 0! Quantidade 1 atribuída automaticamente. [Código: $codigo - Título: $titulo]")
         }
 
         if (preco <= 0) {

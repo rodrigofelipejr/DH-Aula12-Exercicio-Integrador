@@ -7,11 +7,11 @@ class Colecao(
     override val codigo: Int,
     override var preco: Double,
     var descricao: String,
-    val livros: MutableList<Livro>
+    var livros: MutableSet<Livro>
 ) : Item {
     override fun toString(): String {
         var listaLivros: String = ""
         livros.forEach { listaLivros += it.titulo + ", " }
-        return "Código: ${codigo} - Descrição: ${descricao} - Livros: [${listaLivros.dropLast(2)}] - Preço: R$ ${preco.localCurrency()}"
+        return "Código: $codigo - Descrição: $descricao - Livros: [${listaLivros.dropLast(2)}] - Preço: R$ ${preco.localCurrency()}"
     }
 }

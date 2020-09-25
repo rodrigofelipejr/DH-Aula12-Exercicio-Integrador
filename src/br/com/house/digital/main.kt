@@ -4,48 +4,52 @@ import br.com.house.digital.entities.Colecao
 import br.com.house.digital.entities.Estoque
 import br.com.house.digital.entities.Livro
 
-fun main(){
-    val livro1 = Livro(1, "Livro 1", "João", 2020, 5, 15.00)
-    val livro2 = Livro(2, "Livro 2", "Vitoria", 2017, 10, 30.00)
-    val livro3 = Livro(3, "Livro 3", "Jessica", 2015, 15, 30.00)
-    val livro4 = Livro(4, "Livro 4", "Rodrigo", 2019, 2, 40.00)
-    val livro5 = Livro(5, "Livro 5", "Vitor", 2017, 1, 20.00)
+fun main() {
+    val livro1 = Livro(46172676, "Título 1", "Auto 1", 2020, -8, 15.00)
+    val livro2 = Livro(64078455, "Título 2", "Auto 2", 2017, 10, 30.00)
+    val livro3 = Livro(55705942, "Título 3", "Auto 3", 2015, 15, 30.00)
+    val livro4 = Livro(34048745, "Título 4", "Auto 4", 2019, 2, 40.00)
+    val livro5 = Livro(59079041, "Título 5", "Auto 5", 2017, 1, 20.00)
+    val livro6 = Livro(59079041, "Título 5", "Auto 5", 2017, 8, 21.00)
 
-    val livro6 = Livro(6, "Livro 6", "Renan", 2017, 1, 20.00) //livro para add
+    val lista1 = mutableSetOf(livro1, livro2, livro3, livro4, livro5)
+    val lista2 = mutableSetOf(livro4, livro5)
 
-    val listaTodos = mutableListOf(livro1, livro2, livro3, livro4, livro5)
-    val listaProfs = mutableListOf(livro1, livro2, livro3)
+    val colecao1 = Colecao(50323, 100.00, "Descrição 1", lista1)
+    val colecao2 = Colecao(90995, 50.00, "Descrição 2", lista2)
+    val colecao3 = Colecao(90995, 40.00, "Descrição 3", mutableSetOf(livro4, livro5, livro6))
 
-    val colecao1 = Colecao(1,100.00,"Todos os livros",listaTodos)
-    val colecao2 = Colecao(2,50.00,"Livros dos professores", listaProfs)
+    val listaColecao = mutableSetOf(colecao1, colecao2)
 
-    val colecao3 = Colecao(3,40.00,"Coleção novas", mutableListOf(livro4, livro5, livro6))// colecao para add
+    val estoque = Estoque()
 
-    val listaColecao = mutableListOf(colecao1,colecao2)
+    with(estoque) {
+        lista1.forEach { estoque.cadastrar(it) }
+        lista2.forEach { estoque.cadastrar(it) }
 
-    val estoque = Estoque(listaTodos, listaColecao)
+        consultar(livro6.codigo)
+        cadastrar(livro6)
+        consultar(livro6.codigo)
 
-    estoque.cadastrarLivro(livro6)
+        cadastrar("LIVRO") // validação
+        consultar(63079041) // código inválido
 
-    estoque.cadastrarColecao(colecao3)
+        cadastrar(colecao1)
+        cadastrar(colecao2)
 
-    estoque.consultar(6, "livro")
-    estoque.consultar(7, "livro") //livro codigo invalido
-    estoque.consultar(1, "colecao")
-    estoque.consultar(6, "cachoro")
+        consultar(livro1.codigo)
+        vender(livro1.codigo, 2) // maior que a quantidade em estoque
+        vender(livro1.codigo, 1) // venda ok
+        vender(colecao1.codigo, 1, true)
 
-    estoque.vender(6, 2, "livro") //maior que a quantidade em estoque
-    estoque.vender(6, 1, "livro") //venda ok
-    estoque.vender(10, 1, "livro") //livro que não existe
+        consultar(livro4.codigo)
+        consultar(livro5.codigo)
+        vender(colecao2.codigo, 4, true)
+        consultar(livro4.codigo)
+        consultar(livro5.codigo)
 
-    estoque.vender(3, 1,"colecao")
-    println("------------------------------- Teste ----------------------------")
-    estoque.consultar(1, "livro")
-    estoque.consultar(2, "livro")
-    estoque.consultar(3, "livro")
-    estoque.vender(2, 2,"colecao")
-    estoque.consultar(1, "livro")
-    estoque.consultar(2, "livro")
-    estoque.consultar(3, "livro")
-
+        consultar(colecao2.codigo, true)
+        cadastrar(colecao3)
+        consultar(colecao2.codigo, true)
+    }
 }
